@@ -1,0 +1,12 @@
+sudo: required
+services:
+  - docker
+
+# Tagging it as charlieouyang/docker-react since it's needed for later steps to run
+# the image and test... Tag name can be anything since it's limited to this pipeline
+before_install:
+  - docker build -t charlieouyang/docker-react -f Dockerfile.dev .
+
+# All the commands that need to be ran in order for our test suite to run
+script:
+  - docker run charlieouyang/docker-react npm run test -- --coverage
